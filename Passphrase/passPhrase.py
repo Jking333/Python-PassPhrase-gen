@@ -10,19 +10,21 @@ class PassPhrase(pydantic.BaseModel):
 
     @pydantic.validator('passphrase_input',allow_reuse=True)
     def check_passphrase_valid(cls,passphrase_input:str):
-        print('started validator')
-        print(f'aye we did the test {passphrase_input}')
+        print('started validator\n')
+        passphrase_input = passphrase_input.lower()
+        print(f'aye we did the test\t\t {passphrase_input}\n')
         return passphrase_input
     @staticmethod
     def get_Passphrase_from_User():
         user_input = input('Please Enter pass:\t')
         return user_input
-
+class Config(PassPhrase):
+    allow_mutation=True
 
 def main():
     pass_phrase_object = PassPhrase()
     pass_phrase_object.passphrase_input=PassPhrase.get_Passphrase_from_User()
-    PassPhrase.check_passphrase_valid(pass_phrase_object.passphrase_input)
+    pass_phrase_object.passphrase_input=PassPhrase.check_passphrase_valid(pass_phrase_object.passphrase_input)
     print(pass_phrase_object.__dict__)
 
 if '__name__' == main():

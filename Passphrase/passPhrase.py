@@ -6,9 +6,12 @@ import pprint
 
 
 class PassPhrase(pydantic.BaseModel):
+    look_alike_dict = {1:['l','L','i','!','I']}
+
+    
     passphrase_input : Optional[str]
 
-    @pydantic.validator('passphrase_input',allow_reuse=True)
+    @pydantic.validator('passphrase_input',allow_reuse=True,pre=True,)
     def check_passphrase_valid(cls,passphrase_input:str):
         print('started validator\n')
         passphrase_input = passphrase_input.lower()

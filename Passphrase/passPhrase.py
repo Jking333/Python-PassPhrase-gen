@@ -11,7 +11,8 @@ class PassPhrase(pydantic.BaseModel):
     @pydantic.validator('passphrase_input',allow_reuse=True)
     def check_passphrase_valid(cls,passphrase_input:str):
         print('started validator')
-        print(f'aye we did the test {passphrase_input}')
+        passphrase_input = passphrase_input.lower()
+        print(f'aye we did the test\t\t {passphrase_input}')
         return passphrase_input
     @staticmethod
     def get_Passphrase_from_User():

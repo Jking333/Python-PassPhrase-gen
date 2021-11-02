@@ -3,10 +3,20 @@ from typing import Optional
 import pprint
 import regex as re
 global char_repl_list
-char_repl_list = {'l':'1','L':'1','i':'1','!':'1','I':'1', 'S' : '$', 's': '$', 'a': '@', 'A' : '@' }
+char_repl_list = {'l':'1','L':'1',
+    'i':'1','!':'1','I':'1', 
+    'S' : '$', 's': '$', 
+    'a': '@', 'A' : '@',
+     }
 global new_list
 new_list = []
 
+class PassPhraseLengthError(Exception):
+    """Check PassPhrase Length"""
+    def __init__(self, title: str, message: str) -> None:
+        self.title = title
+        self.message = message
+        super().__init__(message)
 
 class PassPhrase(pydantic.BaseModel):
 
@@ -16,7 +26,14 @@ class PassPhrase(pydantic.BaseModel):
     @pydantic.validator('passphrase_input',allow_reuse=True,pre=True,)
     def check_passphrase_valid(cls,passphrase_input:str):
         print('started validator\n')
-
+        try:
+            passphrase_input_split = passphrase_input.split(' ')
+            if len(passphrase_input_split) <= 2:
+                raise PassPhraseLengthError(passphrase_input,f'Passphrase too short -> {passphrase_input, len(passphrase_input_split)} <-Please try again')
+        except PassPhraseLengthError as lenError:
+            """Logic can be here for passphrase to manipulate the value OR just dump the error for later review"""
+            print('\nPassPhraseLength Error\n')
+            return lenError
         passphrase_input_char_list = passphrase_input.split(" ")
         for index, word in enumerate(passphrase_input_char_list):
             if index == 2:
@@ -43,6 +60,7 @@ class PassPhrase(pydantic.BaseModel):
     @staticmethod
     def get_Passphrase_from_User():
         user_input = input('Please Enter pass:\t')
+        user_input = re.sub("\s+"," ",user_input)
         return user_input
 class Config(PassPhrase):
     allow_mutation=True

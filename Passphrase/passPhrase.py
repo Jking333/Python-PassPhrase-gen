@@ -3,7 +3,7 @@ from typing import Optional
 import pprint
 import regex as re
 global char_repl_list
-char_repl_list = {'l':'1','L':'1','i':'1','!':'1','I':'1', }
+char_repl_list = {'l':'1','L':'1','i':'1','!':'1','I':'1', 'S' : '$', 's': '$', 'a': '@', 'A' : '@' }
 global new_list
 new_list = []
 

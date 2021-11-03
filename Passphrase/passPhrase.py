@@ -2,6 +2,7 @@ import pydantic
 from typing import Optional
 import pprint
 import regex as re
+import pyperclip
 global char_repl_list
 char_repl_list = {'l':'1','L':'1',
     'i':'1','!':'1','I':'1', 
@@ -10,6 +11,7 @@ char_repl_list = {'l':'1','L':'1',
      }
 global new_list
 new_list = []
+
 
 class PassPhraseLengthError(Exception):
     """Check PassPhrase Length"""
@@ -56,6 +58,7 @@ class PassPhrase(pydantic.BaseModel):
                 print('character swapping')
         new_passphrase = "".join(new_list)
         print(f'aye we did the test\t\tCHANGED-> {passphrase_input}\tTO-> {new_passphrase}')
+        pyperclip.copy(new_passphrase)
         return new_passphrase
     @staticmethod
     def get_Passphrase_from_User():

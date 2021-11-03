@@ -58,11 +58,12 @@ class PassPhrase(pydantic.BaseModel):
                 print('character swapping')
         new_passphrase = "".join(new_list)
         print(f'aye we did the test\t\tCHANGED-> {passphrase_input}\tTO-> {new_passphrase}')
+        print('Copied to clipboard')
         pyperclip.copy(new_passphrase)
         return new_passphrase
     @staticmethod
     def get_Passphrase_from_User():
-        user_input = input('Please Enter pass:\t')
+        user_input = input('Please Enter Phrase:\t')
         user_input = re.sub("\s+"," ",user_input)
         return user_input
 class Config(PassPhrase):

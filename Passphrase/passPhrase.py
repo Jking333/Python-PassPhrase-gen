@@ -22,8 +22,8 @@ class PassPhraseLengthError(Exception):
 
 class PassPhrase(pydantic.BaseModel):
 
-    
     passphrase_input : Optional[str]
+
 
     @pydantic.validator('passphrase_input',allow_reuse=True,pre=True,)
     def check_passphrase_valid(cls,passphrase_input:str):
@@ -42,7 +42,7 @@ class PassPhrase(pydantic.BaseModel):
                 try:
                         
                     new_word = list(word)
-                    new_word[4] = new_word[4].upper()
+                    new_word[2] = new_word[2].upper()
                     edited_word = "".join(new_word) 
 
                     new_list.append(edited_word)
@@ -73,6 +73,6 @@ def main():
     pass_phrase_object.passphrase_input=PassPhrase.get_Passphrase_from_User()
     pass_phrase_object.passphrase_input=PassPhrase.check_passphrase_valid(pass_phrase_object.passphrase_input)
     print(pass_phrase_object.__dict__)
-
-if '__name__' == main():
+    return pass_phrase_object
+if __name__ == '__main__':
     main()

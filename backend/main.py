@@ -31,7 +31,7 @@ async def get_phrase(id):
 async def post_phrase(phrase):
     return 1
 
-@app.put("api/phrase{id}")
+@app.put("api/phrase")
 async def put_phrase(id, data):
     return 1
 

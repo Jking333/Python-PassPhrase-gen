@@ -5,7 +5,7 @@ import './App.css';
 const App = () => {
   return (
     <div className="App">
-      <h1>Passphrase </h1>
+      <h1>Passphrase </h1> 
       <button>Click me!</button>
       <input/>
     </div>
